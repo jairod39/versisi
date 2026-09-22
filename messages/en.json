@@ -1,0 +1,64 @@
+{
+  "landing": {
+    "slogan": "Versisi. See if you click.",
+    "title": "A game to meet someone.",
+    "sub": "See how you would look together in three moments of life: vacation, wedding and old age. If you both say yes, the conversation opens.",
+    "cta": "Play now",
+    "explore": "Explore challenges",
+    "safeTitle": "Rules that are not negotiable",
+    "safe1": "Adults 18 and over only.",
+    "safe2": "Nothing is generated without your approval.",
+    "safe3": "Images are sample illustrations, watermarked and not downloadable.",
+    "safe4": "You can delete your photos and data whenever you want."
+  },
+  "create": {
+    "title": "Create your challenge",
+    "name": "Your name",
+    "city": "City",
+    "photo": "Your photo",
+    "photoHint": "Full body recommended, not required. Regular clothes.",
+    "age18": "I am 18 or older.",
+    "consent": "I allow Versisi to process my photos to illustrate scenes, only when I approve. I can delete them anytime.",
+    "submit": "Create my challenge",
+    "errName": "Enter your name.",
+    "errConsent": "You need to accept both boxes.",
+    "errPhoto": "Upload a photo."
+  },
+  "visit": {
+    "title": "{name}'s challenge",
+    "sub": "{name}, from {city}, wants to see how you would look together. Upload your photo and send the request.",
+    "note": "Nothing is generated yet. {name} decides first.",
+    "send": "Send request",
+    "sent": "Request sent. {name} will receive it and decide."
+  },
+  "dashboard": {
+    "title": "Your requests",
+    "approve": "Approve and generate",
+    "reject": "Reject",
+    "empty": "No requests right now.",
+    "link": "Your link",
+    "copy": "Copy link"
+  },
+  "scenes": {
+    "vac": "Vacation",
+    "wed": "Wedding",
+    "old": "Old age",
+    "disc": "Sample illustrations made by AI. They do not represent reality and cannot be downloaded.",
+    "q": "Are you interested in meeting {name}?",
+    "yes": "I am interested",
+    "no": "No, thanks",
+    "waiting": "Waiting for {name}…"
+  },
+  "match": {
+    "title": "It's a match!",
+    "gameOver": "The game is over. Now the conversation begins.",
+    "chatPh": "Write a message",
+    "send": "Send",
+    "telegram": "Continue on Telegram"
+  },
+  "feed": {
+    "title": "Explore challenges",
+    "sub": "Scroll through challenges, not profiles.",
+    "play": "Play with {name}"
+  }
+}

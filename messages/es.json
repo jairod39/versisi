@@ -1,0 +1,64 @@
+{
+  "landing": {
+    "slogan": "Versisi, ¿tú crees?",
+    "title": "Un juego para conocer a alguien.",
+    "sub": "Mira cómo se verían juntos en tres momentos de la vida: vacaciones, boda y vejez. Si los dos dicen sí, se abre la conversación.",
+    "cta": "Jugar ahora",
+    "explore": "Explorar retos",
+    "safeTitle": "Reglas que no se negocian",
+    "safe1": "Solo mayores de 18 años.",
+    "safe2": "Nada se genera sin tu aprobación.",
+    "safe3": "Las imágenes son ilustraciones de ejemplo, con marca de agua y sin descarga.",
+    "safe4": "Puedes borrar tus fotos y tus datos cuando quieras."
+  },
+  "create": {
+    "title": "Crea tu reto",
+    "name": "Tu nombre",
+    "city": "Ciudad",
+    "photo": "Tu foto",
+    "photoHint": "Cuerpo entero recomendado, no obligatorio. Ropa normal.",
+    "age18": "Tengo 18 años o más.",
+    "consent": "Autorizo que Versisi procese mis fotos para ilustrar escenas, solo si yo apruebo. Puedo borrarlas cuando quiera.",
+    "submit": "Crear mi reto",
+    "errName": "Escribe tu nombre.",
+    "errConsent": "Necesitas aceptar las dos casillas.",
+    "errPhoto": "Sube una foto."
+  },
+  "visit": {
+    "title": "Reto de {name}",
+    "sub": "{name}, de {city}, quiere ver cómo se verían juntos. Sube tu foto y envía la solicitud.",
+    "note": "Todavía no se genera nada. {name} decide primero.",
+    "send": "Enviar solicitud",
+    "sent": "Solicitud enviada. {name} la recibirá y decidirá."
+  },
+  "dashboard": {
+    "title": "Tus solicitudes",
+    "approve": "Aprobar y generar",
+    "reject": "Rechazar",
+    "empty": "No hay solicitudes por ahora.",
+    "link": "Tu link",
+    "copy": "Copiar link"
+  },
+  "scenes": {
+    "vac": "Vacaciones",
+    "wed": "Boda",
+    "old": "Vejez",
+    "disc": "Ilustraciones de ejemplo generadas por IA. No representan la realidad ni se pueden descargar.",
+    "q": "¿Te interesa conocer a {name}?",
+    "yes": "Me interesa",
+    "no": "No, gracias",
+    "waiting": "Esperando a {name}…"
+  },
+  "match": {
+    "title": "¡Hay match!",
+    "gameOver": "El juego terminó. Ahora empieza la conversación.",
+    "chatPh": "Escribe un mensaje",
+    "send": "Enviar",
+    "telegram": "Seguir en Telegram"
+  },
+  "feed": {
+    "title": "Explora retos",
+    "sub": "Haz scroll por retos, no por perfiles.",
+    "play": "Jugar con {name}"
+  }
+}
