@@ -14,6 +14,8 @@ export default function PhotoUpload({ onUploaded, hint }: { onUploaded: (url: st
     setPreview(URL.createObjectURL(file));
     setBusy(true);
     const supabase = supabaseBrowser();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) await supabase.auth.signInAnonymously();
     const path = `${crypto.randomUUID()}-${file.name}`;
     const { error } = await supabase.storage.from('photos').upload(path, file, { upsert: true });
     setBusy(false);
