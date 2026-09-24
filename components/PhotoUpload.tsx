@@ -14,8 +14,31 @@ export default function PhotoUpload({ onUploaded, hint }: { onUploaded: (url: st
     setPreview(URL.createObjectURL(file));
     setBusy(true);
     const supabase = supabaseBrowser();
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) await supabase.auth.signInAnonymously();
+
+    // --- DIAGNÓSTICO: revisamos la sesión ANTES de subir ---
+    let { data: { user } } = await supabase.auth.getUser();
+    console.log('[DIAG] usuario antes de login anónimo:', user);
+
+    if (!user) {
+      const { data: signInData, error: signInError } = await supabase.auth.signInAnonymously();
+      console.log('[DIAG] resultado signInAnonymously:', signInData, signInError);
+      if (signInError) {
+        setBusy(false);
+        alert('DIAG: falló el login anónimo -> ' + signInError.message);
+        return;
+      }
+      user = signInData.user;
+    }
+
+    const { data: { session } } = await supabase.auth.getSession();
+    console.log('[DIAG] sesión justo antes de subir:', session);
+    if (!session) {
+      setBusy(false);
+      alert('DIAG: no hay sesión activa justo antes de subir la foto. Esa es la causa.');
+      return;
+    }
+    // --- FIN DIAGNÓSTICO ---
+
     const path = `${crypto.randomUUID()}-${file.name}`;
     const { error } = await supabase.storage.from('photos').upload(path, file, { upsert: true });
     setBusy(false);
