@@ -2,8 +2,6 @@
 import { useState } from 'react';
 import { supabaseBrowser } from '@/lib/supabase-browser';
 
-// Sube una foto al bucket privado "photos" de Supabase Storage y devuelve su URL pública.
-// Antes de usarlo, crea el bucket "photos" (privado) en Supabase > Storage.
 export default function PhotoUpload({ onUploaded, hint }: { onUploaded: (url: string) => void; hint?: string }) {
   const [preview, setPreview] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -15,29 +13,12 @@ export default function PhotoUpload({ onUploaded, hint }: { onUploaded: (url: st
     setBusy(true);
     const supabase = supabaseBrowser();
 
-    // --- DIAGNÓSTICO: revisamos la sesión ANTES de subir ---
     let { data: { user } } = await supabase.auth.getUser();
-    console.log('[DIAG] usuario antes de login anónimo:', user);
-
     if (!user) {
       const { data: signInData, error: signInError } = await supabase.auth.signInAnonymously();
-      console.log('[DIAG] resultado signInAnonymously:', signInData, signInError);
-      if (signInError) {
-        setBusy(false);
-        alert('DIAG: falló el login anónimo -> ' + signInError.message);
-        return;
-      }
+      if (signInError) { setBusy(false); alert('Error de sesión: ' + signInError.message); return; }
       user = signInData.user;
     }
-
-    const { data: { session } } = await supabase.auth.getSession();
-    console.log('[DIAG] sesión justo antes de subir:', session);
-    if (!session) {
-      setBusy(false);
-      alert('DIAG: no hay sesión activa justo antes de subir la foto. Esa es la causa.');
-      return;
-    }
-    // --- FIN DIAGNÓSTICO ---
 
     const path = `${crypto.randomUUID()}-${file.name}`;
     const { error } = await supabase.storage.from('photos').upload(path, file, { upsert: true });
@@ -49,12 +30,28 @@ export default function PhotoUpload({ onUploaded, hint }: { onUploaded: (url: st
 
   return (
     <label className="flex items-center gap-4 border-2 border-dashed border-line rounded-2xl p-4 cursor-pointer bg-bg">
-      <div className="w-20 h-20 rounded-full bg-line overflow-hidden flex-none flex items-center justify-center text-xs text-muted">
-        {preview ? <img src={preview} className="w-full h-full object-cover" /> : 'Foto'}
+      <div className="w-20 h-20 rounded-full bg-line overflow-hidden flex-none flex items-center justify-center text-xs text-muted relative">
+        {busy ? (
+          <svg viewBox="0 0 80 80" className="w-full h-full">
+            <circle cx="40" cy="40" r="36" fill="none" stroke="#3A3062" strokeWidth="4" />
+            <circle cx="40" cy="40" r="36" fill="none" stroke="#FF3B5C" strokeWidth="4"
+              strokeDasharray="226" strokeDashoffset="170" strokeLinecap="round">
+              <animateTransform attributeName="transform" type="rotate" from="0 40 40" to="360 40 40" dur="0.9s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="40" cy="30" r="10" fill="#FF3B5C">
+              <animate attributeName="opacity" values="0.5;1;0.5" dur="1.2s" repeatCount="indefinite" />
+            </circle>
+            <path d="M22 62c2-14 10-20 18-20s16 6 18 20" fill="#FF3B5C" opacity="0.9">
+              <animate attributeName="opacity" values="0.6;0.95;0.6" dur="1.2s" repeatCount="indefinite" />
+            </path>
+          </svg>
+        ) : preview ? (
+          <img src={preview} className="w-full h-full object-cover" />
+        ) : 'Foto'}
       </div>
       <div>
-        <b>{busy ? 'Subiendo…' : 'Elegir foto'}</b>
-        {hint && <small className="block text-muted">{hint}</small>}
+        <b>{busy ? 'Procesando tu foto…' : 'Elegir foto'}</b>
+        {hint && !busy && <small className="block text-muted">{hint}</small>}
       </div>
       <input type="file" accept="image/*" hidden onChange={handleFile} />
     </label>
