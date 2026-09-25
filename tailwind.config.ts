@@ -5,14 +5,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#0F0B1F",
-        surface: "#1B1533",
-        ink: "#FFFFFF",
-        muted: "#A79FD1",
-        line: "#3A3062",
-        coral: "#FF3B5C",
-        sun: "#FFB800",
-        sea: "#00D9B5",
+        bg: "#221830",
+        surface: "#2D2140",
+        ink: "#FBF7FF",
+        muted: "#B3A6D9",
+        line: "#493768",
+        coral: "#FF6B6B",
+        sun: "#FFB84D",
+        sea: "#2DD4BF",
       },
       fontFamily: {
         display: ["Bricolage Grotesque", "system-ui", "sans-serif"],

@@ -10,17 +10,25 @@ sección "Conectar la IA de verdad" más abajo.
 ## 1. Crear el proyecto en Supabase (gratis)
 
 1. Ve a https://supabase.com, crea cuenta y un proyecto nuevo (elige la región más cercana a ti).
-2. En el panel del proyecto, ve a **SQL Editor** → **New query**, pega todo el
-   contenido de `supabase/schema.sql` y dale **Run**. Esto crea todas las
-   tablas, incluida `access_keys` (la Llave Versisi).
-3. Ve a **Authentication → Providers** y activa **Anonymous Sign-ins**
+2. **Al crear el proyecto:** en "Security", deja marcado "Enable Data API" y **desmarca** "Automatically expose new tables" y "Enable automatic RLS" (el paso 2 de abajo ya da los permisos correctos a mano).
+3. En el panel del proyecto, ve a **SQL Editor** → **New query**, pega todo el
+   contenido de `supabase/schema.sql` y dale **Run** (elige "Run and enable RLS"
+   si te lo pregunta). Esto crea todas las tablas, las políticas de seguridad,
+   la tabla `access_keys` (la Llave Versisi), y los permisos base que las tablas
+   nuevas necesitan para funcionar con RLS.
+4. Ve a **Authentication → Sign In / Providers** y activa **"Allow anonymous sign-ins"**
    (este prototipo usa sesiones anónimas para no obligar a registrarse con
    correo desde el día 1; puedes cambiarlo luego por login con Telegram o email).
-4. Ve a **Storage**, crea un bucket llamado `photos`, márcalo como **público**
-   (las fotos igual solo se muestran dentro de la app, no se pueden descargar
-   desde la interfaz).
-5. Ve a **Settings → API** y copia tres valores: `Project URL`, `anon public key`
+5. Ve a **Storage**, crea un bucket llamado exactamente `photos` (minúsculas), y
+   márcalo como **público** al crearlo.
+6. Dentro del bucket `photos`, ve a su pestaña **Policies** y crea dos políticas
+   desde cero (no uses las plantillas, no encajan con este proyecto):
+   - **INSERT**, target role `authenticated`, condición: `bucket_id = 'photos'`
+   - **SELECT**, target role `anon`, condición: `bucket_id = 'photos'`
+7. Ve a **Settings → API** y copia tres valores: `Project URL`, `anon public key`
    y `service_role key` (este último es secreto, no lo compartas ni lo subas a GitHub).
+   **Importante:** el "Project URL" correcto NO lleva `/rest/v1/` al final; si lo
+   ves con eso, usa solo la parte de antes (`https://tuproyecto.supabase.co`).
 
 ## 2. Variables de entorno
 
@@ -36,6 +44,12 @@ DAILY_GENERATION_BUDGET_USD=5
 BILLING_ENABLED=false
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
+
+**Si las agregas en Vercel (Settings → Environment Variables):** las que
+empiezan con `NEXT_PUBLIC_` deben quedar con Type = **Config**, nunca
+**Secret**. Si las marcas como Secret por error, Vercel no te deja
+convertirlas después: tienes que borrarlas y crearlas de nuevo como Config.
+Las demás (`SUPABASE_SERVICE_ROLE_KEY`, `TELEGRAM_BOT_TOKEN`) sí deben ser Secret.
 
 ## 3. Probarlo en tu computador (opcional, necesita Node.js instalado)
 

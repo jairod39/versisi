@@ -181,5 +181,24 @@ create policy "reports_self" on reports
 create policy "reports_read_self" on reports
   for select using (auth.uid() = reporter_id);
 
--- scene_sets y access_keys se leen/escriben solo desde el servidor (service role),
--- por eso no llevan políticas de lectura pública: quedan cerradas por defecto.
+-- scene_sets: el dueño y el visitante de una solicitud pueden ver sus escenas.
+create policy "scene_sets_participants" on scene_sets
+  for select using (
+    request_id in (
+      select r.id from requests r
+      join challenges c on c.id = r.challenge_id
+      where r.visitor_id = auth.uid() or c.owner_id = auth.uid()
+    )
+  );
+
+-- access_keys y el resto de escritura de scene_sets se manejan solo desde el
+-- servidor (service role), por eso no llevan más políticas de cliente.
+
+-- ---------- Permisos de base (necesarios además de RLS) ----------
+-- Sin esto, aunque las políticas de arriba estén bien, los roles anon y
+-- authenticated no tienen ni siquiera permiso de tocar las tablas.
+grant usage on schema public to anon, authenticated;
+grant select, insert, update, delete on all tables in schema public to anon, authenticated;
+grant usage, select on all sequences in schema public to anon, authenticated;
+alter default privileges in schema public grant select, insert, update, delete on tables to anon, authenticated;
+alter default privileges in schema public grant usage, select on sequences to anon, authenticated;

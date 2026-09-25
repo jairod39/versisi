@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { supabaseBrowser } from '@/lib/supabase-browser';
 
+// Sube una foto al bucket privado "photos" de Supabase Storage y devuelve su URL pública.
+// Antes de usarlo, crea el bucket "photos" (privado) en Supabase > Storage.
 export default function PhotoUpload({ onUploaded, hint }: { onUploaded: (url: string) => void; hint?: string }) {
   const [preview, setPreview] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -13,12 +15,29 @@ export default function PhotoUpload({ onUploaded, hint }: { onUploaded: (url: st
     setBusy(true);
     const supabase = supabaseBrowser();
 
+    // --- DIAGNÓSTICO: revisamos la sesión ANTES de subir ---
     let { data: { user } } = await supabase.auth.getUser();
+    console.log('[DIAG] usuario antes de login anónimo:', user);
+
     if (!user) {
       const { data: signInData, error: signInError } = await supabase.auth.signInAnonymously();
-      if (signInError) { setBusy(false); alert('Error de sesión: ' + signInError.message); return; }
+      console.log('[DIAG] resultado signInAnonymously:', signInData, signInError);
+      if (signInError) {
+        setBusy(false);
+        alert('DIAG: falló el login anónimo -> ' + signInError.message);
+        return;
+      }
       user = signInData.user;
     }
+
+    const { data: { session } } = await supabase.auth.getSession();
+    console.log('[DIAG] sesión justo antes de subir:', session);
+    if (!session) {
+      setBusy(false);
+      alert('DIAG: no hay sesión activa justo antes de subir la foto. Esa es la causa.');
+      return;
+    }
+    // --- FIN DIAGNÓSTICO ---
 
     const path = `${crypto.randomUUID()}-${file.name}`;
     const { error } = await supabase.storage.from('photos').upload(path, file, { upsert: true });
