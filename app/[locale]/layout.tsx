@@ -16,12 +16,23 @@ export default async function LocaleLayout({
       <body>
         <NextIntlClientProvider messages={messages}>
           <header className="sticky top-0 z-20 bg-bg border-b border-line">
-            <div className="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
-              <a href={`/${locale}`} className="font-display font-extrabold text-xl">Versisi</a>
-              <nav className="flex gap-3 text-sm">
+            <div className="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between gap-4">
+              <a href={`/${locale}`} className="font-display font-extrabold text-xl flex-none">Versisi</a>
+              <nav className="flex items-center gap-2 sm:gap-4 text-sm overflow-x-auto">
+                <a href={`/${locale}/feed`} className="px-3 py-1.5 rounded-full hover:bg-surface whitespace-nowrap">
+                  {locale === 'en' ? 'Explore' : 'Explorar'}
+                </a>
+                <a href={`/${locale}/create`} className="px-3 py-1.5 rounded-full hover:bg-surface whitespace-nowrap">
+                  {locale === 'en' ? 'Create' : 'Crear reto'}
+                </a>
+                <a href={`/${locale}/dashboard`} className="px-3 py-1.5 rounded-full hover:bg-surface whitespace-nowrap">
+                  {locale === 'en' ? 'My requests' : 'Mis solicitudes'}
+                </a>
+              </nav>
+              <div className="flex gap-2 text-sm flex-none">
                 <a href="/es" className="opacity-70 hover:opacity-100">ES</a>
                 <a href="/en" className="opacity-70 hover:opacity-100">EN</a>
-              </nav>
+              </div>
             </div>
           </header>
           <main>{children}</main>
