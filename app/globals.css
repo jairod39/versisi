@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-body { background: #EFEBFF; color: #1B1740; font-family: theme('fontFamily.body'); }
+body { @apply bg-bg text-ink; font-family: theme('fontFamily.body'); }
 h1, h2, h3 { font-family: theme('fontFamily.display'); letter-spacing: -0.02em; }
 
 .btn { @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink px-6 py-3 font-semibold bg-surface transition-transform active:translate-y-px; }
-.btn-primary { @apply bg-coral text-ink; }
+.btn-primary { @apply bg-coral text-[#221830] border-coral; }
 .btn-ghost { @apply border-line; }
 .card { @apply bg-surface border-2 border-line rounded-card p-6; }
 .input { @apply w-full rounded-2xl border-2 border-line bg-bg px-4 py-3 text-ink focus:outline-none focus:border-ink; }
