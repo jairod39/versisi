@@ -5,8 +5,23 @@
 body { @apply bg-bg text-ink; font-family: theme('fontFamily.body'); }
 h1, h2, h3 { font-family: theme('fontFamily.display'); letter-spacing: -0.02em; }
 
-.btn { @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink px-6 py-3 font-semibold bg-surface transition-transform active:translate-y-px; }
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border-[3px] border-ink px-7 py-3.5 font-bold bg-surface;
+  box-shadow: 5px 5px 0 var(--tw-shadow-color, #221830);
+  transition: transform .12s, box-shadow .12s;
+}
+.btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 #221830; }
+.btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #221830; }
 .btn-primary { @apply bg-coral text-[#221830] border-coral; }
-.btn-ghost { @apply border-line; }
-.card { @apply bg-surface border-2 border-line rounded-card p-6; }
-.input { @apply w-full rounded-2xl border-2 border-line bg-bg px-4 py-3 text-ink focus:outline-none focus:border-ink; }
+.btn-ghost { @apply border-line; box-shadow: none; }
+.btn-ghost:hover { box-shadow: none; transform: none; }
+
+.card {
+  @apply bg-surface border-[3px] border-ink rounded-[28px] p-6;
+  box-shadow: 6px 6px 0 #0000003a;
+}
+.input {
+  @apply w-full rounded-2xl border-[3px] border-line bg-bg px-4 py-3 text-ink focus:outline-none;
+  transition: border-color .15s;
+}
+.input:focus { @apply border-coral; }
