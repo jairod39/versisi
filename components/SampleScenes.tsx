@@ -103,10 +103,11 @@ export default function SampleScenes({ locale }: { locale: string }) {
       {SCENES.map(({ Comp, uid, label }, i) => (
         <div
           key={uid}
-          className="w-[30%] bg-surface border-[3px] border-ink rounded-2xl p-1.5 pb-2"
+          className="w-[30%] bg-surface rounded-2xl p-1.5 pb-2"
           style={{
             transform: `rotate(${i === 0 ? -4 : i === 1 ? 1.5 : -2}deg) translateY(${i === 1 ? 0 : 14}px)`,
-            boxShadow: '5px 5px 0 #0000004a',
+            border: '1px solid rgba(255,255,255,.1)',
+            boxShadow: '0 12px 22px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08)',
           }}
         >
           <div className="rounded-md overflow-hidden"><Comp uid={uid} /></div>
