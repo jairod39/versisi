@@ -25,7 +25,7 @@ export default function Feed() {
       <p className="text-muted mb-8">{t('sub')}</p>
       <div className="grid gap-5 text-left">
         {items.map((c: any) => (
-          <a key={c.slug} href={`/es/r/${c.slug}`} className="card flex items-center gap-4">
+          <a key={c.slug} href={`/r/${c.slug}`} className="card flex items-center gap-4">
             <img src={c.profiles.photo_url} className="w-14 h-14 rounded-full object-cover" />
             <div className="flex-1">
               <b>{c.profiles.name}</b>

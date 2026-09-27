@@ -35,7 +35,7 @@ export default function Dashboard() {
       method: 'POST',
       headers: { Authorization: `Bearer ${session?.access_token}` },
     });
-    if (action === 'approve') router.push(`/es/dashboard/scenes/${id}`);
+    if (action === 'approve') router.push(`/dashboard/scenes/${id}`);
     else load();
   }
 
@@ -45,7 +45,7 @@ export default function Dashboard() {
       {slug && (
         <div className="card flex items-center justify-between gap-3 mb-6 flex-wrap">
           <span className="font-semibold break-all">/r/{slug}</span>
-          <button className="btn btn-primary" onClick={() => navigator.clipboard.writeText(`${location.origin}/es/r/${slug}`)}>{t('copy')}</button>
+          <button className="btn btn-primary" onClick={() => navigator.clipboard.writeText(`${location.origin}/r/${slug}`)}>{t('copy')}</button>
         </div>
       )}
       {requests.length === 0 && <p className="text-muted">{t('empty')}</p>}

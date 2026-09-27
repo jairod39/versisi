@@ -48,7 +48,7 @@ export default function Scenes({ params }: { params: { requestId: string } }) {
     });
     const data = await res.json();
     if (!interested) return setDecided('no');
-    if (data.match) router.push(`/es/match/${data.matchId}`);
+    if (data.match) router.push(`/match/${data.matchId}`);
     else setDecided('waiting');
   }
 

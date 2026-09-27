@@ -43,7 +43,7 @@ export default function CreateChallenge() {
     });
     setBusy(false);
     const data = await res.json();
-    if (data.challenge) router.push(`/es/r/${data.challenge.slug}`);
+    if (data.challenge) router.push(`/r/${data.challenge.slug}`);
     else setErr(data.error || 'Error');
   }
 

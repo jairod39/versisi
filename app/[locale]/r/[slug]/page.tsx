@@ -38,7 +38,7 @@ export default function VisitChallenge({ params }: { params: { slug: string } })
       const { data } = await supabase.from('requests').select('status').eq('id', requestId).single();
       if (data?.status === 'approved') {
         setStatus('approved');
-        router.push(`/es/dashboard/scenes/${requestId}`);
+        router.push(`/dashboard/scenes/${requestId}`);
       } else if (data?.status === 'rejected') {
         setStatus('rejected');
       }

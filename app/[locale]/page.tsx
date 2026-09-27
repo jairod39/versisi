@@ -9,8 +9,8 @@ export default async function Landing({ params: { locale } }: { params: { locale
       <h1 className="text-5xl font-extrabold mb-5 max-w-2xl">{t('title')}</h1>
       <p className="text-muted max-w-xl mb-8 text-lg">{t('sub')}</p>
       <div className="flex gap-3 flex-wrap">
-        <a href={`/${locale}/create`} className="btn btn-primary">{t('cta')}</a>
-        <a href={`/${locale}/feed`} className="btn">{t('explore')}</a>
+        <a href={`/create`} className="btn btn-primary">{t('cta')}</a>
+        <a href={`/feed`} className="btn">{t('explore')}</a>
       </div>
 
       <section className="mt-16 border-t border-line pt-10">
